@@ -53,6 +53,7 @@ namespace Transport
         {
             foreach(Transport tr in transports)
             {
+                dataGridView1.Rows.Clear();
                 dataGridView1.Rows.Add
                 (
                     tr.Trans,
