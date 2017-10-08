@@ -44,5 +44,21 @@ namespace Transport
                     }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Transport result = new Transport();
+            if(textBox1.Text.Count() > 0)
+            {
+                result.Trans = textBox1.Text;
+            }
+            else
+            {
+                result.Trans = "";
+            }
+            result.CurrentRoute = FormRoute.routes[comboBox1.SelectedIndex];
+            result.Stop = FormRoute.routes[comboBox1.SelectedIndex].Stops[comboBox3.SelectedIndex];
+            save?.Invoke(this, result);
+        }
     }
 }
