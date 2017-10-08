@@ -31,9 +31,14 @@ namespace Transport
             textBox1.Text = "NULL";
             for(int i = 0; i < FormRoute.routes.Count(); i++)
             {
-                comboBox3.Items.Add(routes);
+                if(FormRoute.routes[i] != null)
+                    comboBox3.Items.Add(FormRoute.routes[i].Number);
+                    for (int j = 0; j < FormRoute.routes[i].Stops.Count(); j++)
+                    {
+                        if (FormRoute.routes[i] != null)
+                            comboBox1.Items.Add(FormRoute.routes[i].Stops[j].Name_);
+                    }
             }
-            comboBox3.Items.Add();
         }
     }
 }

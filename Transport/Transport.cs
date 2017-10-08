@@ -78,7 +78,7 @@ namespace Transport
                 this.Name_ = Name;
                 this.Street = Street;
             }
-        }
+        };
         public string Number { get; set; }
         public List<Stop> Stops { get; private set; } 
         public void addStop(string Name, string Street)

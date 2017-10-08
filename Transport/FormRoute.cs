@@ -79,6 +79,7 @@ namespace Transport
                 saves?.Invoke(this, obj);
                 routes.Add(obj);
             }
+            this.Close();
         }
     }
 }
