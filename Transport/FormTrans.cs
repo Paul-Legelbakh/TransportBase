@@ -17,14 +17,18 @@ namespace Transport
         public FormTrans()
         {
             InitializeComponent();
+            foreach (String type in Enum.GetValues(typeof(TransType)).Cast<TransType>().Select(v => v.ToString()).ToList())
+            {
+                this.comboBox2.Items.Add(type);
+            }
         }
         public FormTrans(Transport obj)
         {
             InitializeComponent();
             this.textBox1.Text = "NULL";
             this.comboBox1.Text = "NULL";
-            this.comboBox2.Text = "NULL";
             this.comboBox3.Text = "NULL";
+            this.comboBox2.SelectedIndex = this.comboBox2.FindString(obj.Type.ToString());
         }
         private void FormTrans_Load(object sender, EventArgs e)
         {
