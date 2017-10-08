@@ -37,12 +37,9 @@ namespace Transport
             {
                 if(FormRoute.routes[i] != null)
                     comboBox3.Items.Add(FormRoute.routes[i].Number);
-                    for (int j = 0; j < FormRoute.routes[i].Stops.Count(); j++)
-                    {
-                        if (FormRoute.routes[i] != null)
-                            comboBox1.Items.Add(FormRoute.routes[i].Stops[j].Name_);
-                    }
             }
+            comboBox3.SelectedIndex = 0;
+            comboBox1.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,9 +53,20 @@ namespace Transport
             {
                 result.Trans = "";
             }
-            result.CurrentRoute = FormRoute.routes[comboBox1.SelectedIndex];
-            result.Stop = FormRoute.routes[comboBox1.SelectedIndex].Stops[comboBox3.SelectedIndex];
+            result.CurrentRoute = FormRoute.routes[comboBox3.SelectedIndex];
+            result.Stop = FormRoute.routes[comboBox3.SelectedIndex].Stops[comboBox1.SelectedIndex];
             save?.Invoke(this, result);
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = comboBox3.SelectedIndex;
+            comboBox1.Items.Clear();
+            foreach(var stop in FormRoute.routes[index].Stops)
+            {
+                comboBox1.Items.Add(stop.Name_);
+            }
+            comboBox1.SelectedIndex = 0;
         }
     }
 }
