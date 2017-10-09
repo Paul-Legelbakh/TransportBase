@@ -51,7 +51,8 @@ namespace Transport
 
         private void ShowTransports()
         {
-            foreach(Transport tr in transports)
+            dataGridView1.Rows.Clear();
+            foreach (Transport tr in transports)
             {
                 dataGridView1.Rows.Add
                 (
