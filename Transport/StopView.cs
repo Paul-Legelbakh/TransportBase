@@ -12,6 +12,7 @@ namespace Transport
 {
     public partial class StopView : UserControl
     {
+        private Route route;
         public StopView()
         {
             InitializeComponent();
@@ -20,11 +21,27 @@ namespace Transport
         public StopView(Route route)
         {
             InitializeComponent();
-            this.label2.Text = route.Number;
+            this.route = route;
+            label2.Text = route.Number;
             foreach(var stop in route.Stops)
             {
-                this.dataGridView1.Rows.Add(stop.Name_, stop.Street);
+                dataGridView1.Rows.Add(stop.Street, stop.Name_);
             }
+        }
+        private void SaveEvent (object sender, Route route)
+        {
+            label2.Text = route.Number;
+            dataGridView1.Rows.Clear();
+            foreach (var stop in route.Stops)
+            {
+                dataGridView1.Rows.Add(stop.Street, stop.Name_);
+            }
+        }
+        private void StopView_DoubleClick(object sender, EventArgs e)
+        {
+            FormRoute formRoute = new FormRoute(route);
+            formRoute.saves = SaveEvent;
+            formRoute.ShowDialog();
         }
     }
 }

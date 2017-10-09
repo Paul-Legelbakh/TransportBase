@@ -16,6 +16,7 @@ namespace Transport
         public static List<Route> routes = new List<Route>();
         public delegate void RouteSaveEventHandler(object sender, Route trans);
         public RouteSaveEventHandler saves;
+        private Route current;
         public FormRoute()
         {
             InitializeComponent();
@@ -24,13 +25,15 @@ namespace Transport
         public FormRoute(Route route)
         {
             InitializeComponent();
+            current = route;
             textBox1.Text = route.Number;
-
             Point last = new Point();
             foreach(Route.Stop stop in route.Stops)
             {
-                StopEdit stopEdit = new StopEdit(stop);
-                stopEdit.Location = last;
+                StopEdit stopEdit = new StopEdit(stop)
+                {
+                    Location = last
+                };
                 panel1.Controls.Add(stopEdit);
                 last.Y += stopEdit.Height;
             }
@@ -52,15 +55,13 @@ namespace Transport
         {
             if (textBox1.Text != "" && panel1.Controls.Count > 0)
             {
-                Route obj = new Route()
-                {
-                    Number = textBox1.Text
-                };
+                Route obj = (current is null ? new Route() : current);
+                obj.Number = textBox1.Text;
+                obj.Stops.Clear();
                 foreach (Control x in panel1.Controls)
                 {
-                    if(x is StopEdit)
+                    if (x is StopEdit edit)
                     {
-                        StopEdit edit = (StopEdit)x;
                         if (edit.textBox1.Text != "" && edit.textBox2.Text != "")
                         {
                             Route.Stop stop = new Route.Stop()
@@ -72,14 +73,10 @@ namespace Transport
                         }
                     }
                 }
-                //if (saves != null)
-                //{
-                //    saves(this, obj);
-                //}
                 saves?.Invoke(this, obj);
-                routes.Add(obj);
+                if(routes.Find(x => x.ID == obj.ID) is null) routes.Add(obj);
             }
-            this.Close();
+            Close();
         }
     }
 }

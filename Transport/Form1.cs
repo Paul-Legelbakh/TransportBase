@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Transport
@@ -31,7 +26,10 @@ namespace Transport
 
         private void savedTransport(object sender, Transport transport)
         {
-            transports.Add(transport);
+            if (transports.Find(x => x.ID == transport.ID) is null)
+            {
+                transports.Add(transport);
+            }
             ShowTransports();
         }
 
@@ -74,6 +72,14 @@ namespace Transport
                 panel1.Controls.Add(stopView);
                 last.Y += stopView.Height;
             }
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Transport prod = (Transport)transports.ToArray().GetValue(e.RowIndex);
+            FormTrans formTrans = new FormTrans(prod);
+            formTrans.save += savedTransport;
+            formTrans.ShowDialog();
         }
     }
 }

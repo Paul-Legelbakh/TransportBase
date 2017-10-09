@@ -14,37 +14,46 @@ namespace Transport
     {
         public delegate void TransportSaveEventHandler(object sender, Transport trans);
         public TransportSaveEventHandler save;
+        private Transport current;
+
         public FormTrans()
         {
             InitializeComponent();
             foreach (String type in Enum.GetValues(typeof(TransType)).Cast<TransType>().Select(v => v.ToString()).ToList())
             {
-                this.comboBox2.Items.Add(type);
+                comboBox2.Items.Add(type);
+            }
+            for (int i = 0; i < FormRoute.routes.Count(); i++)
+            {
+                if (FormRoute.routes[i] != null)
+                    comboBox3.Items.Add(FormRoute.routes[i].Number);
             }
         }
         public FormTrans(Transport obj)
         {
             InitializeComponent();
-            this.textBox1.Text = "NULL";
-            this.comboBox1.Text = "NULL";
-            this.comboBox3.Text = "NULL";
-            this.comboBox2.SelectedIndex = this.comboBox2.FindString(obj.Type.ToString());
+            foreach (String type in Enum.GetValues(typeof(TransType)).Cast<TransType>().Select(v => v.ToString()).ToList())
+            {
+                comboBox2.Items.Add(type);
+            }
+            textBox1.Text = obj.Trans;
+            for (int i = 0; i < FormRoute.routes.Count(); i++)
+            {
+                if (FormRoute.routes[i] != null)
+                    comboBox3.Items.Add(FormRoute.routes[i].Number);
+            }
+            comboBox3.SelectedIndex = comboBox3.FindString(obj.CurrentRoute.Number);
+            comboBox2.SelectedIndex = comboBox2.FindString(obj.Type.ToString());
+            comboBox1.SelectedIndex = comboBox1.FindString(obj.Stop.Name_);
+            current = obj;
         }
         private void FormTrans_Load(object sender, EventArgs e)
         {
-            textBox1.Text = "NULL";
-            for(int i = 0; i < FormRoute.routes.Count(); i++)
-            {
-                if(FormRoute.routes[i] != null)
-                    comboBox3.Items.Add(FormRoute.routes[i].Number);
-            }
-            comboBox3.SelectedIndex = 0;
-            comboBox2.SelectedIndex = 0;
-            comboBox1.SelectedIndex = 0;
+           
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            Transport result = new Transport();
+            Transport result = (current is null ? new Transport() : current);
             if((comboBox1.SelectedItem is null) || (comboBox2.SelectedItem is null) || (comboBox3.SelectedItem is null)) MessageBox.Show("Ошибка! Вы не ввели значение");
             else
             {
@@ -60,7 +69,7 @@ namespace Transport
                 result.Type = (TransType)comboBox2.SelectedIndex;
                 result.Stop = FormRoute.routes[comboBox3.SelectedIndex].Stops[comboBox1.SelectedIndex];
                 save?.Invoke(this, result);
-                this.Close();
+                Close();
             }
         }
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,6 +82,5 @@ namespace Transport
             }
             comboBox1.SelectedIndex = 0;
         }
-
     }
 }

@@ -20,8 +20,8 @@ namespace Transport
         public StopEdit(Route.Stop stop)
         {
             InitializeComponent();
-            this.textBox1.Text = stop.Name_;
-            this.textBox2.Text = stop.Street;
+            this.textBox1.Text = stop.Street;
+            this.textBox2.Text = stop.Name_;
         }
 
         private void StopEdit_Load(object sender, EventArgs e)

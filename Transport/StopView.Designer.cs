@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.Street = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Stop = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,6 +48,22 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(504, 140);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // Street
+            // 
+            this.Street.HeaderText = "Улица";
+            this.Street.Name = "Street";
+            this.Street.ReadOnly = true;
+            this.Street.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Street.Width = 250;
+            // 
+            // Stop
+            // 
+            this.Stop.HeaderText = "Остановка";
+            this.Stop.Name = "Stop";
+            this.Stop.ReadOnly = true;
+            this.Stop.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Stop.Width = 250;
             // 
             // label1
             // 
@@ -68,22 +84,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "0";
             // 
-            // Street
-            // 
-            this.Street.HeaderText = "Улица";
-            this.Street.Name = "Street";
-            this.Street.ReadOnly = true;
-            this.Street.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Street.Width = 250;
-            // 
-            // Stop
-            // 
-            this.Stop.HeaderText = "Остановка";
-            this.Stop.Name = "Stop";
-            this.Stop.ReadOnly = true;
-            this.Stop.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Stop.Width = 250;
-            // 
             // StopView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,6 +93,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "StopView";
             this.Size = new System.Drawing.Size(590, 170);
+            this.DoubleClick += new System.EventHandler(this.StopView_DoubleClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
